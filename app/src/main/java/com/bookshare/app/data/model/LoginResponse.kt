@@ -1,4 +1,7 @@
 package com.bookshare.app.data.model
 
-class LoginResponse {
-}
+
+data class LoginResponse(
+    val refresh: String,
+    val access: String
+)
