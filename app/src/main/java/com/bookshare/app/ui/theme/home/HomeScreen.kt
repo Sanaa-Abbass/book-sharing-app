@@ -29,7 +29,8 @@ fun HomeScreen(
             "Clean Code",
             "Robert Martin",
             "Ahmed",
-            true
+            true,
+            "Ahmed"
         ),
 
         Book(
@@ -37,7 +38,8 @@ fun HomeScreen(
             "Atomic Habits",
             "James Clear",
             "Sara",
-            true
+            true,
+            "Sara"
         ),
 
         Book(
@@ -45,7 +47,8 @@ fun HomeScreen(
             "The Pragmatic Programmer",
             "Andrew Hunt",
             "Mohammed",
-            true
+            true,
+            "Mohammed"
         )
     )
 

@@ -21,14 +21,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.bookshare.app.navigation.Screen
+import com.bookshare.app.viewmodel.AuthViewModel
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
 
     var  username  by remember { mutableStateOf("") }
     var  password  by remember { mutableStateOf("") }
+    val viewModel : AuthViewModel = viewModel()
 
 
     Column(
@@ -72,7 +75,8 @@ fun LoginScreen(navController: NavHostController) {
         Button(
             onClick = {
                 // Temporary navigation
-                navController.navigate(Screen.Home.route)
+                //navController.navigate(Screen.Home.route)
+                viewModel.login(username , password)
             },
             modifier = Modifier.fillMaxWidth()
         ) {

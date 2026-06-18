@@ -10,5 +10,5 @@ data class Book(
     val description: String,
     val available: Boolean,
     @SerializedName("owner_username")
-    val ownerUsername: String
+    val ownerName: String
 )
