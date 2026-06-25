@@ -1,7 +1,9 @@
 package com.bookshare.app.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookshare.app.data.datastore.TokenManager
 import com.bookshare.app.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 
@@ -10,24 +12,36 @@ class AuthViewModel : ViewModel() {
     private val repository =AuthRepository()
 
     fun login(
+        context: Context,
         username: String,
-        password: String
+        password: String,
+        onSuccess: () -> Unit
     ) {
 
         viewModelScope.launch {
 
-            val response =repository.login(username, password)
+            try{
+                val response=repository.login(username, password)
 
-            if (response.isSuccessful) {
+                if (response.isSuccessful) {
 
-                val token =response.body()?.access
+                    val token=response.body()
 
-                println("TOKEN = $token")
-            } else {
+                    if (token != null) {
 
-                println(
-                    "ERROR = ${response.errorBody()?.string()}"
-                )
+                        TokenManager(context).saveTokens(token.access, token.refresh)
+
+                        onSuccess()
+                    }
+
+                } else {
+
+                    println(
+                        "ERROR = ${response.errorBody()?.string()}"
+                    )
+                }
+            }catch (e: Exception){
+                println("NETWORK ERROR = ${e.message}")
             }
         }
     }
