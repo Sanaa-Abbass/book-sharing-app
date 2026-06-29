@@ -7,8 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookshare.app.data.datastore.TokenManager
 import com.bookshare.app.data.model.User
 import com.bookshare.app.data.repository.AuthRepository
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
