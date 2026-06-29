@@ -75,9 +75,12 @@ fun HomeScreen(navController: NavController) {
     ) {
         Button(
             onClick = {
-                scope.launch {
-                   //authViewModel.logout(context,)
-                }
+               // scope.launch {
+                    authViewModel.logout(context){
+                        navController.navigate(Screen.Login.route)
+                        { popUpTo(0) }
+                    }
+                //}
             }
         ) {
             Text(text = "Logout")
