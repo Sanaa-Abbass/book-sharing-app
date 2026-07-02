@@ -24,4 +24,22 @@ interface ApiService {
     suspend fun getProfile(
         @Header("Authorization") token: String
     ): Response<User>
+
+
+    @GET("api/books/")
+    suspend fun getBooks(
+        @Header("Authorization") token: String?
+    ): Response<List<Book>>
+
+    @GET("api/books/{id}/")
+    suspend fun getBook(
+        @Header("Authorization") token: String,
+        @Path("id") id : Int
+    ): Response<Book>
+
+    @POST("api/books/")
+    suspend fun createBook(
+        @Header("Authorization") token: String,
+        @Body book: Book
+    ): Response<Book>
 }

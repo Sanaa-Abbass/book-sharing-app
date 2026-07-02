@@ -18,15 +18,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-import androidx.navigation.NavController
+
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
-import com.bookshare.app.data.model.Book
+
 import com.bookshare.app.navigation.Screen
-import com.bookshare.app.ui.theme.BookShareTheme
+
 import com.bookshare.app.ui.theme.home.components.BookCard
 import com.bookshare.app.viewmodel.AuthViewModel
+import com.bookshare.app.viewmodel.BookViewModel
 
 import kotlinx.coroutines.launch
 
@@ -36,41 +37,16 @@ fun HomeScreen(navController: NavHostController) {
 
     val context =LocalContext.current
     val authViewModel : AuthViewModel =viewModel()
+    val bookViewModel : BookViewModel =viewModel()
     val scope =rememberCoroutineScope()
 
     // Load the user's profile once when the screen is first displayed.
     LaunchedEffect(Unit) {
         authViewModel.loadProfile(context)
+        bookViewModel.loadBooks(context)
     }
-    val books = listOf(
 
-        Book(
-            1,
-            "Clean Code",
-            "Robert Martin",
-            "Ahmed",
-            true,
-            "Ahmed"
-        ),
 
-        Book(
-            2,
-            "Atomic Habits",
-            "James Clear",
-            "Sara",
-            true,
-            "Sara"
-        ),
-
-        Book(
-            3,
-            "The Pragmatic Programmer",
-            "Andrew Hunt",
-            "Mohammed",
-            true,
-            "Mohammed"
-        )
-    )
 
     Column(
         modifier = Modifier
@@ -152,19 +128,16 @@ fun HomeScreen(navController: NavHostController) {
             modifier = Modifier.height(12.dp)
         )
 
-        LazyColumn {
+        if (bookViewModel.books.isEmpty()) {
 
-            items(
-                books
-            ) { book ->
+            Text("No books available.")
 
-                BookCard(
-                    book = book
-                )
+        } else {
 
-                Spacer(
-                    modifier = Modifier.height(12.dp)
-                )
+            LazyColumn {
+                items(bookViewModel.books) { book ->
+                    BookCard(book)
+                }
             }
         }
     }
