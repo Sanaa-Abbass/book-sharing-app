@@ -39,7 +39,7 @@ fun BookCard(
             )
 
             Text(
-                text = "Owner: ${book.ownerName}"
+                text = "Owner: ${book.owner}"
             )
 
             Spacer(
